@@ -37,6 +37,8 @@ router.get('/', (req, res) => {
               productsRetVal.push(thisProduct);
               if(products.indexOf(product) == products.length - 1){
                 retObj["products"] = productsRetVal;
+                console.clear();
+                console.log(retObj);
                 res.status(200).json(retObj);
               }
             }
@@ -82,6 +84,8 @@ router.get('/:id', (req, res) => {
           });
           if (productTags.indexOf(productTag) == productTags.length - 1) {
             retObj["product"] = thisProduct;
+            console.clear();
+            console.log(retObj);
             res.status(200).json(retObj);
           }
         });
@@ -116,10 +120,14 @@ router.post('/', (req, res) => {
       return ProductTag.bulkCreate(productTagIdArr);
     }
     // if no product tags, just respond
+    console.clear();
+    console.log(retObj);
     res.status(200).json(retObj);
   })
   .then((productTagIds) => {
     retObj.productTags = productTagIds;
+    console.clear();
+    console.log(retObj);
     res.status(200).json(retObj);
   })
   .catch((err) => {
@@ -167,6 +175,8 @@ router.put('/:id', (req, res) => {
   })
   .then((updatedProductTags) => {
     retObj.productTags = {updated: updatedProductTags[0].createdTags, deleted: updatedProductTags[0].deletedTags}
+    console.clear();
+    console.log(retObj);
     res.status(200).json(retObj)
   })
   .catch((err) => {
@@ -186,6 +196,8 @@ router.delete('/:id', (req, res) => {
         tagsDestroyed: tagsDestroyed, 
         message: "Products and Tags removed from Database."
       }
+      console.clear();
+      console.log(productsDestroyed);
       res.status(200).json(productsDestroyed);
     })
   })

@@ -13,13 +13,16 @@ const seedAll = async () => {
     await seedProducts();
     await seedTags();
     await seedProductTags();
-    //await sequelize.showAllSchemas();
   } catch (err) { 
     console.log('err', err); 
-  } finally {
-    console.log('end of scripts')
-    //process.exit(0);
-  }
+    process.exit(1);
+  } 
+  console.log('end of scripts');
 };
 
 seedAll();
+setTimeout(() => {
+  console.clear();
+  console.log('~ ecommerce_db has been seeded. ~');
+  process.exit(0);
+}, 500);

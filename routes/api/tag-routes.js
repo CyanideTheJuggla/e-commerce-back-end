@@ -44,6 +44,8 @@ router.get('/', (req, res) => {
     }
   })
   .finally(() => {
+    console.clear();
+    console.log(retVals);
     res.status(200).json(retVals);
   })
   .catch(err => {
@@ -57,22 +59,24 @@ router.get('/:id', (req, res) => {
   // be sure to include its associated Product data
   const retVals = [];
   Tag.findAll({where: {id: req.params.id}})
-    .then(async tags => {
-      if(tags.length > 0){
-        for (let i = 0; i < tags.length; i++) {
-          const thisTag = tags[i].dataValues;
-          const val = await processTags(thisTag);
-          retVals.push(val);
-        }
+  .then(async tags => {
+    if(tags.length > 0){
+      for (let i = 0; i < tags.length; i++) {
+        const thisTag = tags[i].dataValues;
+        const val = await processTags(thisTag);
+        retVals.push(val);
       }
-    })
-    .finally(() => {
-      res.status(200).json(retVals[0]);
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(400).json(err);
-    });
+    }
+  })
+  .finally(() => {
+    console.clear();
+    console.log(retVals);
+    res.status(200).json(retVals[0]);
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(400).json(err);
+  });
 });
 
 
@@ -81,6 +85,8 @@ router.post('/', (req, res) => {
   const retObj = {};
   Tag.create(req.body).then(tag => {
     retObj["tag"] = tag.dataValues;
+    console.clear();
+    console.log(retObj);
     res.status(200).json(retObj);
   })
   .catch(err => {
@@ -96,6 +102,8 @@ router.put('/:id', (req, res) => {
   Tag.update(req.body, {where: {id: req.params.id}})
   .then(tagsUpdated => {
     retObj.tagsUpdated = tagsUpdated[0];
+    console.clear();
+    console.log(retObj);
     res.status(200).json(retObj);
   })
   .catch(err => {
@@ -114,6 +122,8 @@ router.delete('/:id', (req, res) => {
     Tag.destroy({where: {id: req.params.id}})
     .then(tagRows => {
       retObj.tagsDeleted = tagRows;
+      console.clear();
+      console.log(retObj);
       res.status(200).json(retObj);
     });
   })

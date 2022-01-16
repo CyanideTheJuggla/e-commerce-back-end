@@ -26,13 +26,14 @@ router.get('/', (req, res) => {
     if(categories.length > 0) {
       for (let i = 0; i < categories.length; i++) {
         const thisCat = categories[i].dataValues;
-        //console.log('thisCat', thisCat);
         const val = await processCategories(thisCat);
         retVals.push(val);
       }
     }
   })
   .finally(() => {
+    console.clear();
+    console.log(retVals[0]);
     res.status(200).json(retVals);
   })
   .catch(err => {
@@ -51,13 +52,14 @@ router.get('/:id', (req, res) => {
     if(categories.length > 0) {
       for (let i = 0; i < categories.length; i++) {
         const thisCat = categories[i].dataValues;
-        //console.log('thisCat', thisCat);
         const val = await processCategories(thisCat);
         retVals.push(val);
       }
     }
   })
   .finally(() => {
+    console.clear();
+    console.log(retVals[0]);
     res.status(200).json(retVals[0]);
   })
   .catch(err => {
@@ -69,6 +71,8 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   // create a new category
   Category.create(req.body).then((category)=>{
+    console.clear();
+    console.log(category);
     res.status(200).json(category);
   }).catch((err) => {
     console.log(err);
@@ -82,6 +86,8 @@ router.put('/:id', (req, res) => {
   Category.update(req.body, {where: {id: req.params.id}})
   .then(rowsUpdated => {
     retObj["rowsUpdated"] = rowsUpdated;
+    console.clear();
+    console.log(retObj);
     res.status(200).json(retObj);
   })
   .catch(err => {
@@ -105,6 +111,8 @@ router.delete('/:id', (req, res) => {
     Category.destroy({where: {id: req.params.id}})
     .then(categoriesDestroyed => {
       retObj.categoriesDestroyed = categoriesDestroyed;
+      console.clear();
+      console.log(retObj);
       res.status(200).json(retObj);
     })
   })
