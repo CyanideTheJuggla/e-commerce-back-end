@@ -1,4 +1,5 @@
-const { Tag } = require('../models');
+const { Tag } = require('../models/');
+const { sequelize } = require('../models/Product');
 
 const tagData = [
   {
@@ -27,6 +28,8 @@ const tagData = [
   },
 ];
 
-const seedTags = () => Tag.bulkCreate(tagData);
-
+const seedTags = () => {
+  Tag.sync();
+  Tag.bulkCreate(tagData);
+}
 module.exports = seedTags;
